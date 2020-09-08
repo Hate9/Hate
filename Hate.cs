@@ -101,10 +101,10 @@ namespace Hate
 			return ret;
 		}
 
-		public static int Levenschtien(string s, string t)
+		public static int Levenschtien(string left, string right)
 		{
-			int n = s.Length;
-			int m = t.Length;
+			int n = left.Length;
+			int m = right.Length;
 			int[,] d = new int[n + 1, m + 1];
 			if (n == 0) return m;
 			if (m == 0) return n;
@@ -114,7 +114,7 @@ namespace Hate
 					{
 						for (int l = 1; l <= m; l++)
 						{
-							int cost = (t[l - 1] == s[k - 1]) ? 0 : 1;
+							int cost = (right[l - 1] == left[k - 1]) ? 0 : 1;
 							d[k, l] = Math.Min(
 								Math.Min(d[k - 1, l] + 1, d[k, l - 1] + 1),
 								d[k - 1, l - 1] + cost);
