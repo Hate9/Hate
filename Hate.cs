@@ -9,6 +9,7 @@ namespace Hate
 {
 	public static class Tools
 	{
+		/// <summary>Determines whether or not a specific <see cref="Type"/> is convertable to another <see cref="Type"/>.</summary>
 		public static bool IsConvertable(Type fromType, Type toType)
 		{
 			try
@@ -21,6 +22,8 @@ namespace Hate
 				return false;
 			}
 		}
+
+		/// <summary>Discovers the number of elements in an IEnumerable.</summary>
 		public static int Count<T>(this IEnumerable<T> set)
 		{
 			int result = 0;
@@ -30,6 +33,7 @@ namespace Hate
 			return result;
 		}
 
+		/// <summary>Returns the item at a specified index in an IEnumerable.</summary>
 		public static T ItemAt<T>(this IEnumerable<T> set, int index)
 		{
 			int i = 0;
@@ -45,6 +49,7 @@ namespace Hate
 			throw new ArgumentOutOfRangeException("index");
 		}
 
+		/// <summary>Returns the maximum index value for an IEnumerable.</summary>
 		public static int Max<T>(this IEnumerable<T> set)
 		{
 			return set.Count() - 1;
@@ -52,16 +57,19 @@ namespace Hate
 
 		static Random rng = new Random();
 
+		/// <summary>Returns a random item from an IEnumerable.</summary>
 		public static T RandomItem<T>(this IEnumerable<T> set)
 		{
 			return set.RandomItem(rng);
 		}
 
+		/// <summary>Returns a random item from an IEnumerable, using the specified <see cref="Random"/>.</summary>
 		public static T RandomItem<T>(this IEnumerable<T> set, Random rng)
 		{
 			return set.ItemAt(rng.Next(set.Max()));
 		}
 
+		/// <summary>Returns the specified <see cref="string"/> with the first character capitalized.</summary>
 		public static string Capitalize(this string input) =>
 		input switch
 		{
@@ -70,11 +78,14 @@ namespace Hate
 			_ => input.First().ToString().ToUpper() + input.Substring(1)
 		};
 
+		/// <summary>Returns <paramref name="input"/> with the substring at <paramref name="index"/> replaced by <paramref name="replace"/>.</summary>
 		public static string ReplaceChar(this string input, int index, string replace) =>
 			(index + replace.Length > input.Length || index < 0)
 			? throw new ArgumentOutOfRangeException("index")
 			: input.Remove(index, replace.Length).Insert(index, replace);
 
+
+		/// <summary>Encodes an array of <see cref="bool"/>s into a byte.</summary>
 		public static byte EncodeBool(bool[] arr)
 		{
 			byte val = 0;
@@ -86,11 +97,13 @@ namespace Hate
 			return val;
 		}
 
+		/// <summary>Returns the bit at space <paramref name="bitNumber"/> from <paramref name="b"/> as a <see cref="bool"/>.</summary>
 		public static bool GetBit(byte b, int bitNumber)
 		{
 			return (b & (1 << bitNumber)) != 0;
 		}
 
+		/// <summary>Returns a <see cref="bool"/>[] representing each bit of <paramref name="b"/>.</summary>
 		public static bool[] ByteToBoolArr(byte b)
 		{
 			bool[] ret = new bool[8];
@@ -101,6 +114,7 @@ namespace Hate
 			return ret;
 		}
 
+		/// <summary>Returns the Levenschtien Distance between two <see cref="string"/>s.</summary>
 		public static int Levenschtien(string left, string right)
 		{
 			int n = left.Length;
@@ -124,6 +138,7 @@ namespace Hate
 		}
 	}
 
+	/// <summary>Represents a fixed-size Queue.</summary>
 	public class FQueue<T> : Queue<T>
 	{
 		readonly uint maxEntries;
