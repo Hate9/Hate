@@ -9,17 +9,6 @@ namespace Hate
 {
 	public static class Tools
 	{
-		public static byte EncodeBool(bool[] arr)
-		{
-			byte val = 0;
-			foreach (bool b in arr)
-			{
-				val <<= 1;
-				if (b) val |= 1;
-			}
-			return val;
-		}
-
 		public static bool IsConvertable(Type fromType, Type toType)
 		{
 			try
@@ -85,6 +74,17 @@ namespace Hate
 			(index + replace.Length > input.Length || index < 0)
 			? throw new ArgumentOutOfRangeException("index")
 			: input.Remove(index, replace.Length).Insert(index, replace);
+
+		public static byte EncodeBool(bool[] arr)
+		{
+			byte val = 0;
+			foreach (bool b in arr)
+			{
+				val <<= 1;
+				if (b) val |= 1;
+			}
+			return val;
+		}
 
 		public static bool GetBit(byte b, int bitNumber)
 		{
